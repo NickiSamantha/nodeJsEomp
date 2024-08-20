@@ -21,14 +21,14 @@ const deleteProduct = async(req,res)=>{
 }
 
 const updateProduct = async(req,res) =>{
-    let {productName, quantity, amount, category, prodUrl} = req.body
-    let product = await getProductDb(req.params.prodID)
-    productName?productName=productName:productName = product.prodName
+    let {prodName, quantity, amount, category, prodUrl} = req.body
+    let product = await getProductDb(req.params.id)
+    prodName?prodName=prodName:prodName = product.prodName
     quantity?quantity=quantity:quantity = product.quantity
     amount?amount=amount:amount = product.amount
     category?category=category:category = product.category
     prodUrl?prodUrl=prodUrl:prodUrl = product.prodUrl
-    await updateProductDb(req.params.id, productName, quantity, amount, category, prodUrl)
+    await updateProductDb(prodName, quantity, amount, category, prodUrl, req.params.id)
     res.send('Product was updated successfully')
 }
 
