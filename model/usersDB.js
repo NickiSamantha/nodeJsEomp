@@ -16,29 +16,29 @@ const getUsersDb = async()=>{
 }
 
 const getUserDb = async(id) =>{
-    const [data] = await pool.query('SELECT * FROM users WHERE id = ?', [id])
+    const [data] = await pool.query('SELECT * FROM users WHERE userID = ?', [id])
     return data
 }
 
 const insertUserDb = async(name, surname, age, gender, role, email, password, profile) =>{
-    let [data] = await pool.query(`
+    await pool.query(`
         INSERT INTO users (firstName, lastName, userAge, Gender, userRole, userAdd, userPass, userProfile )
-        VALUES (?,?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?)
         `, [name, surname, age, gender, role, email, password, profile])
 }
 
 const deleteUserDb = async(id) =>{
-    await pool.query(`DELETE FROM users WHERE id = ?`, [id])
+    await pool.query(`DELETE FROM users WHERE userID = ?`, [id])
 }
 
-const updateUserDb = async(id) =>{
+const updateUserDb = async(name, surname, age, gender, role, email, password, profile, id) =>{
     await pool.query(`
         UPDATE users
-        SET firstName = ? lastName = ? userAge = ? Gender = ? userRole = ? userAdd = ? userPass, userProfile
+        SET firstName = ? ,lastName = ?, userAge = ? ,Gender = ? ,userRole = ? ,userAdd = ? ,userPass = ?, userProfile = ?
         WHERE userID = ?`, 
     [name, surname, age, gender, role, email, password, profile, id])
 }
 
-console.log(await getUsersDb());
+// console.log(await getUsersDb());
 
 export {getUsersDb, getUserDb, insertUserDb, deleteUserDb, updateUserDb}
