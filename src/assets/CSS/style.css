@@ -1,0 +1,137 @@
+/* Bootstrap icon */
+/* App */
+
+#app {
+    font-family: "Poppins", sans-serif;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   text-align: center;
+   color: #030303;
+ }
+ 
+ nav {
+   padding: 30px;
+   
+ }
+ 
+ /* nav a {
+  
+   color: #C0E9ED;
+ } */
+ 
+ nav a.router-link-exact-active {
+    font-weight: bold;
+    color:  #e8d9cd;
+ }
+
+ .navbar {
+   background: linear-gradient(90deg, #b98e6e, #c19a7d, #c9a78d, #d1b39d, #e8d9cd);
+   
+ }
+
+ .footer {
+    background: linear-gradient(90deg, #b98e6e, #c19a7d, #c9a78d, #d1b39d, #e8d9cd);
+   
+ }
+/* Universal selector*/
+
+/* Custom variables */ 
+::-webkit-scrollbar{
+   display: none;
+}
+/* logo */ 
+img {
+   aspect-ratio: 1 ;
+   object-fit: cover; /*change between cover and contain*/
+   object-position: center;
+   border-radius: 1rem;
+   animation: hop 2s ease-in-out;
+}
+img[alt='logo'] {
+   width: 5rem ;
+   border: 1px solid  #e8d9cd;
+   cursor: pointer;
+  
+}
+
+.btn:hover {
+color: white;
+}
+
+/*wrapper*/
+:is(.wrapper){background: linear-gradient(90deg, #b98e6e, #c19a7d, #c9a78d, #d1b39d, #e8d9cd);
+}
+/*Fonts*/
+.display-1 {
+font-family: "Playfair Display", serif;
+}
+h2 , h3 , h4 , p {
+ font-family: "Playfair Display", serif;
+}
+/*Landing Page*/
+.landpic {
+ border: 2px solid rgb(0, 0, 0);
+ border-radius: 300px ;
+ width: 29rem;
+ margin-top: 3rem;
+ box-shadow: 10px 10px 20px grey;
+}
+
+/*About*/
+.about-text {
+   margin-bottom: 1rem;
+   /* font-size: medium; */
+ }
+ .Bg h1 {
+
+   font-family: "Playfair Display", serif;
+
+ }
+/*MEDIA QUERIES*/
+ @media only screen and (max-width:720px) {
+
+   .Bg {
+
+     flex-direction:column;
+     
+   } 
+   :is(.wrapper){
+      width:100%;
+      overflow: hidden;
+     
+ }
+ 
+ .landing {
+   flex-direction: column;
+   margin-top: 20px;
+ }
+ .titleLand{
+   padding-top:3rem;
+ }
+ .landpic{
+   margin-top: 4rem;
+ }
+ .col {
+   order: initial !important;
+ }
+ .card-hover:hover {
+   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+   transition: box-shadow 1s ease-in-out;
+ }
+}
+   @media (max-width: 900px) {
+     .card {
+       width: 100%; 
+       margin-bottom: 20px;
+     }
+     
+   }
+   
+   .card-header {
+     text-align: center;
+   }
+   
+   .card-body {
+     padding: 1rem;
+     
+   }
