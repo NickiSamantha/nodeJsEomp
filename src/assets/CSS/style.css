@@ -13,12 +13,7 @@
    padding: 30px;
    
  }
- 
- /* nav a {
-  
-   color: #C0E9ED;
- } */
- 
+
  nav a.router-link-exact-active {
     font-weight: bold;
     color:  #e8d9cd;
@@ -62,10 +57,10 @@ color: white;
 :is(.wrapper){background: linear-gradient(90deg, #b98e6e, #c19a7d, #c9a78d, #d1b39d, #e8d9cd);
 }
 /*Fonts*/
-.display-1 {
+.display-2 {
 font-family: "Playfair Display", serif;
 }
-h2 , h3 , h4 , p {
+h2 , h3 , h4 , p , h1 , h5 , label , button {
  font-family: "Playfair Display", serif;
 }
 /*Landing Page*/
