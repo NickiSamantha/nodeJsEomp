@@ -1,11 +1,15 @@
 import express from 'express'
 import productsRouter from './routes/products.js'
 import usersRouter from './routes/users.js'
-
+import cors from 'cors'
 let port = process.env.PORT || 5001
 const app = express()
 app.use(express.static('public'))
 app.use(express.json())
+app.use(cors({
+  origin: '*',
+  credentials:true
+}))
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
