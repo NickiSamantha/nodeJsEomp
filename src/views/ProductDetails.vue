@@ -6,9 +6,8 @@
     <div class="row justify-content-center" v-if="product">
       <Card>
         <template #cardHeader>
-          {{ product.prodURL }}
           <img
-            :src="product.prodURL"
+            :src="product.prodUrl"
             loading="lazy"
             class="img-fluid"
             :alt="product.prodName"
@@ -16,9 +15,9 @@
         </template>
         <template #cardBody>
           <h5 class="card-title fw-bold">{{ product.prodName }}</h5>
-          <!-- <p class="lead">
+          <p class="lead">
             {{ product.prodDescription }}
-          </p> -->
+          </p>
           <p class="lead">
             <span class="text-tertiary fw-bold">Amount</span>: R{{
               product.amount

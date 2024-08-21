@@ -1,5 +1,5 @@
 <template>
-    <div class="footer container-fluid sticky-bottom ">
+    <div class="container-fluid sticky-bottom ">
         <div class="row">
             <p class="lead">
                 Nicki Abels and Mahmud Isaacs &copy; <span currYear></span>
