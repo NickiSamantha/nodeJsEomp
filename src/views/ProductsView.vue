@@ -4,7 +4,7 @@
       <h2 class="display-2">Products</h2>
     </div>
     <div class="row gap-2 justify-content-center my-2" v-if="products">
-      <Card v-for="(product , prodID) in products" :key="prodID">
+      <Card v-for="product  in products" :key="product.prodID">
         <template #cardHeader>
           {{ product.prodURL }}
           <img
@@ -22,12 +22,11 @@
             }}
           </p>
           <div class="button-wrapper d-md-flex d-block justify-content-between">
-           <!-- <router-link
-              :to="{ name: 'product', params: { id: product.productID } }"
-            >  -->
+           <router-link
+              :to="{ name: 'product', params: { id: product.prodID } }"
+            > 
               <button class="btn btn-light">View</button>
-            <!-- </router-link> -->
-            <button class="btn btn-dark">Cart</button>
+          </router-link>
           </div>
         </template>
       </Card>
