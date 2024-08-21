@@ -1,5 +1,5 @@
 <template>
-<div class="container ">
+<div class="container vh-100 ">
   <p>
           Join us in the journey of self-expression and creativity. Together,
           let's make every piece of clothing a canvas for your imagination.</p>
