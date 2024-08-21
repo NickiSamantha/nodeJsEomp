@@ -14,7 +14,7 @@ const insertProduct = async (req, res) => {
         let { prodName, quantity, amount, category, prodUrl } = req.body;
         await insertProductDb(prodName, quantity, amount, category, prodUrl);
 
-        res.status().send('Product was added successfully');
+        res.status(200).send('Product was added successfully');
     } catch (error) {
         res.status(400).send('An error occurred while adding the product');
     }
