@@ -11,8 +11,8 @@ const fetchProduct = async(req,res)=>{
 
 const insertProduct = async (req, res) => {
     try {
-        let { prodName, quantity, amount, category, prodUrl } = req.body;
-        await insertProductDb(prodName, quantity, amount, category, prodUrl);
+        let { prodName, quantity, amount, category, prodUrl, prodDescription } = req.body;
+        await insertProductDb(prodName, quantity, amount, category, prodUrl, prodDescription);
 
         res.status(200).send('Product was added successfully');
     } catch (error) {
@@ -32,14 +32,15 @@ const deleteProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
-        let { prodName, quantity, amount, category, prodUrl } = req.body;
+        let { prodName, quantity, amount, category, prodUrl, prodDescription } = req.body;
         let product = await getProductDb(req.params.id);
         prodName?prodName=prodName:prodName = product.prodName
         quantity?quantity=quantity:quantity = product.quantity
         amount?amount=amount:amount = product.amount
         category?category=category:category = product.category
         prodUrl?prodUrl=prodUrl:prodUrl = product.prodUrl
-        await updateProductDb(prodName, quantity, amount, category, prodUrl, req.params.id);
+        prodDescription?prodDescription=prodDescription:prodDescription + product.prodDescription
+        await updateProductDb(prodName, quantity, amount, category, prodUrl, prodDescription, req.params.id);
         res.send('Product was updated successfully');
 
     } catch (error) {
