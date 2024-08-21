@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container vh-100">
     <div class="row">
       <h2 class="display-2">Product Details</h2>
     </div>
@@ -16,11 +16,11 @@
         </template>
         <template #cardBody>
           <h5 class="card-title fw-bold">{{ product.prodName }}</h5>
-          <p class="lead">
+          <!-- <p class="lead">
             {{ product.prodDescription }}
-          </p>
+          </p> -->
           <p class="lead">
-            <span class="text-success fw-bold">Amount</span>: R{{
+            <span class="text-tertiary fw-bold">Amount</span>: R{{
               product.amount
             }}
           </p>
