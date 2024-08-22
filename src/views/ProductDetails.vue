@@ -46,4 +46,14 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.card {
+  transition: all 0.3s ease-in-out;
+}
+</style>

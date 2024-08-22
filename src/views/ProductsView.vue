@@ -20,11 +20,12 @@
               product.amount
             }}
           </p>
-          <div class="button-wrapper d-md-flex d-block justify-content-between">
-           <router-link
+          <div class="button-wrapper">
+<router-link
               :to="{ name: 'product', params: { id: product.prodID } }"
-            > 
-              <button class="btn btn-light">View</button>
+              class="btn btn-dark"
+              > 
+              View Product
           </router-link>
           </div>
         </template>
@@ -50,5 +51,17 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+
+.card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.button-wrapper button,
+.card {
+  transition: all 0.3s ease-in-out;
+}
+
 
 </style>

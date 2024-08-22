@@ -7,6 +7,8 @@
     <div class="container mt-3">
       <!-- Manage Users Section -->
       <h1>Manage Users</h1>
+      
+<!-- add user -->
       <div class="row mb-3">
         <div class="col-sm-4">
           <button type="button"
@@ -57,6 +59,33 @@
 
       <!-- Manage Products Section -->
       <h1>Manage Products</h1>
+       <!-- sort -->
+      <div class="row mb-3">
+    <div class="col-sm-4">
+      <button
+        class="btn btn-secondary"
+        @click="sortProductsByAmount"
+      >
+        Sort by amount
+      </button>
+      
+    </div>
+    <button
+        class="btn btn-secondary col-sm-2"
+        @click="searchProductsByCategory(searchCategory)"
+      >
+        Search 
+      </button>
+    <div class="col-sm-4">
+      <input
+        type="text"
+        v-model="searchCategory"
+        placeholder="Search by category"
+        class="form-control"
+      /> 
+    </div>
+    
+  </div>
       <div class="row mb-3">
         <div class="col-sm-4">
           <button
@@ -131,7 +160,7 @@
             <input v-model="userForm.role" type="text" id="role" required>
           </div>
           <button type="submit">{{ isEditingUser ? 'Update User' : 'Save User' }}</button>
-          <button type="button" @click="showAddUserModal = false">Cancel</button>
+          <button type="reset" @click="showAddUserModal = false">Cancel</button>
         </form>
     </div>
     </div>
@@ -154,7 +183,7 @@
             <input v-model="productForm.amount" type="number" id="amount" required>
           </div>
           <button type="submit">{{ isEditingProduct ? 'Update Product' : 'Save Product' }}</button>
-          <button type="button" @click="showAddProductModal = false">Cancel</button>
+          <button type="reset" @click="showAddProductModal = false">Cancel</button>
         </form>
       </div>
     </div>
@@ -164,7 +193,7 @@
 <script>
 import { useStore } from "vuex";
 import { computed, ref, onMounted } from "vue";
-import { Spinner } from "bootstrap-vue-3";
+import { Spinner } from "@/components/Spinner.vue";
 
 export default {
   name: 'AdminDashboard',
@@ -206,10 +235,13 @@ export default {
     const addOrUpdateUser = () => {
       if (isEditingUser.value) {
         store.dispatch("updateUser", userForm.value);
-      } else {
-        store.dispatch("register", userForm.value);
-      }
+      }  else {
+    store.dispatch("register", userForm.value).then((newUser) => {
+      store.commit("setUsers", [...store.state.users, newUser]);
+    });
+  }
       showAddUserModal.value = false;
+      resetUserForm();
     };
 
     const editUser = (user) => {
@@ -243,9 +275,12 @@ export default {
       if (isEditingProduct.value) {
         store.dispatch("updateProduct", productForm.value);
       } else {
-        store.dispatch("addAProduct", productForm.value);
-      }
+    store.dispatch("addAProduct", productForm.value).then((newProduct) => {
+      store.commit("setProducts", [...store.state.products, newProduct]);
+    });
+  }
       showAddProductModal.value = false;
+      resetProductForm();
     };
 
     const editProduct = (product) => {
@@ -292,7 +327,23 @@ export default {
       resetProductForm,
     };
   },
-};
+  data() {
+    return {
+      searchCategory: '',
+    }
+  },
+
+  methods: {
+    searchProductsByCategory(category) {
+      this.$store.dispatch('searchProductsByCategory', category);
+    },
+
+    sortProductsByAmount() {
+      this.$store.dispatch('sortProductsByAmount');
+    },
+  },
+}
+  
 </script>
 
 <style scoped>
