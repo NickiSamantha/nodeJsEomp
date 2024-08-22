@@ -20,6 +20,11 @@ const getUserDb = async(id) =>{
     return data
 }
 
+const loginUserDB = async(userAdd) =>{
+    const [[data]] = await pool.query('SELECT * FROM users WHERE userAdd = ?', [userAdd])
+    return data
+}
+
 const insertUserDb = async(firstName, lastName, userAge, Gender, userRole, userAdd, userPass, userProfile) =>{
     await pool.query(`
         INSERT INTO users (firstName, lastName, userAge, Gender, userRole, userAdd, userPass, userProfile )
@@ -48,4 +53,4 @@ const updateUserDb = async(firstName, lastName, userAge, Gender, userRole, userA
 
 // console.log(await getUsersDb());
 
-export {getUsersDb, getUserDb, insertUserDb, deleteUserDb, updateUserDb}
+export {getUsersDb, getUserDb, insertUserDb, deleteUserDb, updateUserDb, loginUserDB}
