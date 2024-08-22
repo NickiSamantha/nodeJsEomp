@@ -1,14 +1,13 @@
 <template>
-  <div class="container ">
+  <div class="container">
     <div class="row">
       <h2 class="display-2">Products</h2>
     </div>
     <div class="row gap-2 justify-content-center my-2" v-if="products">
       <Card v-for="product  in products" :key="product.prodID">
         <template #cardHeader>
-          {{ product.prodURL }}
           <img
-            :src="product.prodURL"
+            :src="product.prodUrl"
             loading="lazy"
             class="img-fluid"
             :alt="product.prodName"

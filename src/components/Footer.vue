@@ -1,17 +1,25 @@
 <template>
-    <div class="footer container-fluid sticky-bottom ">
-        <div class="row">
-            <p class="lead">
-                Nicki Abels and Mahmud Isaacs &copy; <span currYear></span>
-            </p>
-        </div>
-    </div>
+      <footer class="bottom footer container-fluid">
+      <div class="row">
+          <p class="lead">Nicki Abels & Mahmud Isaacs Copyright &copy;
+              <span currentYear></span>
+          </p>
+      </div>
+  </footer>
+
 </template>
 
 <script>
-export default {
-    name: "FooterComp",
-}
+ export default {
+        name: "FooterComp",
+        data () {
+            return{
+                cYear: new Date ().
+                getUTCFullYear()
+            }
+        },
+
+    }
 </script>
 
 <style scoped></style>
