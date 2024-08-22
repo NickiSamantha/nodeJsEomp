@@ -33,6 +33,32 @@ export default createStore({
     },
   },
   actions: {
+    //search products
+    async searchProductsByCategory(context, category) {
+      try {
+        const products = await axios.get(`${apiURL}products`);
+        const filteredProducts = products.data.filter(products => products.category.includes(category));
+        context.commit('setProducts', filteredProducts);
+      } catch (e) {
+        toast.error(`${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      }
+    },
+    // sort by amount 
+    async sortProductsByAmount(context) {
+      try {
+        const products = await axios.get(`${apiURL}products`);
+        const sortedProducts = products.data.sort((a, b) => a.amount - b.amount);
+        context.commit('setProducts', sortedProducts);
+      } catch (e) {
+        toast.error(`${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      }
+    },
     // ==== User ========
     async fetchUsers(context) {
       try {
@@ -81,7 +107,7 @@ export default createStore({
             autoClose: 2000,
             position: toast.POSITION.BOTTOM_CENTER
           })
-          // router.push({ name: 'login' })
+         
         } else {
           toast.error(`${err}`, {
             autoClose: 2000,

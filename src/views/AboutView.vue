@@ -1,12 +1,12 @@
 <template>
-<div class="container vh-100 ">
+  <div class="container-fluid"> 
+    <div class="row">
+  <h2 class="display-2">About</h2>
+</div>
+<div class="container" >
   <p>
           Join us in the journey of self-expression and creativity. Together,
           let's make every piece of clothing a canvas for your imagination.</p>
-          <h5 class="text-tertiary"><i>Welcome to Pretty Simple Printz, where 
-            style meets simplicity, and
-            every print tells a story.</i></h5>
-        
         <div class="" 
         data-aos="fade-down"
     data-aos-anchor-placement="top-bottom"
@@ -48,31 +48,17 @@
             </div>
 
 </div>
+  
+
+  </div>
+
 </template>
 
 <script>
 export default {
-  name: "AboutComp",
-
-  computed: {
-    about() {
-      return this.$store.state.about;
-    },
-  },
-  created() {
-    this.$store.dispatch("fetchAbout");
-  },
-  components: {
-   
-  },
-  mounted() {
-},
-methods: {
-
-}
+  
 };
 </script>
 
 <style scoped>
-
 </style>

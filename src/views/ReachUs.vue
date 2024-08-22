@@ -6,7 +6,7 @@
         </div>
         <div >
         </div>
-        <div class="col-md-6 m-auto p-2 mb-4">
+        <div class="col-md-6 m-auto p-2">
         <form  id="contactForm" action="https://formspree.io/f/manwpnbk"
           method="POST" target="_blank">
             <div class="mb-3">
