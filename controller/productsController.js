@@ -16,16 +16,16 @@ const insertProduct = async (req, res) => {
 
         res.status(200).send('Product was added successfully');
     } catch (error) {
-        res.status(400).send('An error occurred while adding the product');
+        res.status(404).send('An error occurred while adding the product');
     }
 };
 
 const deleteProduct = async (req, res) => {
     try {
         await deleteProductDb(req.params.id);
-        res.send('Product was deleted successfully');
+        res.status(200).send('Product was deleted successfully');
     } catch (error) {
-        res.status(400).send('An error occurred while trying to delete a product');
+        res.status(404).send('An error occurred while trying to delete a product');
     }
 };
 
@@ -41,10 +41,10 @@ const updateProduct = async (req, res) => {
         prodUrl?prodUrl=prodUrl:prodUrl = product.prodUrl
         prodDescription?prodDescription=prodDescription:prodDescription + product.prodDescription
         await updateProductDb(prodName, quantity, amount, category, prodUrl, prodDescription, req.params.id);
-        res.send('Product was updated successfully');
+        res.status(200).send('Product was updated successfully');
 
     } catch (error) {
-        res.status(400).send('An error occurred while updating the product');
+        res.status(404).send('An error occurred while updating the product');
     }
 };
 

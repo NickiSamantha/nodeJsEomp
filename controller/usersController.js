@@ -15,13 +15,13 @@ const insertUser = async (req, res) => {
 
         hash(userPass, 10, async (err, hashedP) => {
             if (err) {
-                return res.status(400).send('Error with password');
+                return res.status(404).send('Error with password');
             }
             try {
                 await insertUserDb(firstName, lastName, userAge, Gender, userRole, userAdd, hashedP, userProfile);
                 res.status(200).send('User was registered successfully');
             } catch (dbError) {
-                res.status(400).send('Error while registering user');
+                res.status(404).send('Error while registering user');
             }
         });
     } catch (error) {
@@ -49,8 +49,15 @@ const updateUser = async (req, res) => {
         await updateUserDb(firstName, lastName, userAge, Gender, userRole, userAdd, userPass, userProfile, req.params.id);
         res.status(200).send('User was updated successfully');
     } catch (error) {
-        res.status(400).send('An error occurred while updating the user');
+        res.status(404).send('An error occurred while updating the user');
     }
 };
 
-export{fetchUsers,fetchUser,insertUser,deleteUser,updateUser}
+const loginUser = async(req,res)=>{
+    res.json({message:"You have logged in successfully", token:req.body.token})
+};
+
+
+
+
+export{fetchUsers,fetchUser,insertUser,deleteUser,updateUser,loginUser}
