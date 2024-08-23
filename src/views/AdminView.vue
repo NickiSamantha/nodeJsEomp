@@ -265,8 +265,8 @@
                               required
                             />
                           </div>
-                          <button type="submit">Save User</button>
-                          <button type="reset">Cancel</button>
+                          <button class="m-2" type="submit">Save User</button>
+                          <button class="m-2" type="reset">Cancel</button>
                         </form>
                       </div>
                       <div class="modal-footer">
@@ -277,9 +277,7 @@
                         >
                           Close
                         </button>
-                        <button type="button" class="btn btn-primary">
-                          Save changes
-                        </button>
+                       
                       </div>
                     </div>
                   </div>
@@ -295,9 +293,9 @@
           </tbody>
         </table>
       </div>
-      <div v-else class="text-center">
-        <spinner label="Loading..."></spinner>
-      </div>
+      <div v-else>
+      <Spinner />
+    </div>
 
       <!-- Manage Products Section -->
       <h1>Manage Products</h1>
@@ -551,9 +549,7 @@
                         >
                           Close
                         </button>
-                        <!-- <button type="button" class="btn btn-primary">
-                          Save changes
-                        </button> -->
+              
                       </div>
                     </div>
                   </div>
@@ -569,9 +565,9 @@
           </tbody>
         </table>
       </div>
-      <div v-else class="text-center">
-        <spinner label="Loading..."></spinner>
-      </div>
+      <div v-else>
+      <Spinner />
+    </div>
 
     <!-- Add/Edit Product Modal -->
     <div v-if="showAddProductModal" class="custom-modal">
@@ -613,6 +609,7 @@
         </form>
       </div>
     </div>
+    
   <!-- </div> -->
 </template>
 

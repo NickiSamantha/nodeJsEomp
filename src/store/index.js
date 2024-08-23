@@ -165,13 +165,7 @@ export default createStore({
         if (results) {
           console.log(results)
           context.commit("setProducts", results);
-        } 
-        //  else {
-        //   toast.error(`${}`, {
-        //   autoClose: 2000,
-        //   position: toast.POSITION.BOTTOM_CENTER,
-        // });
-        //  }
+        }
       } catch (e) {
         toast.error(`${e.message}`, {
           autoClose: 2000,
@@ -187,12 +181,6 @@ export default createStore({
         if (result) {
           context.commit("setProduct", result);
         } 
-        // else {
-        //   toast.error(`${msg}`, {
-        //     autoClose: 2000,
-        //     position: toast.POSITION.BOTTOM_CENTER,
-        //   });
-        // }
       } catch (e) {
         toast.error(`${e.message}`, {
           autoClose: 2000,

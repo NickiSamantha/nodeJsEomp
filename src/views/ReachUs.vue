@@ -87,10 +87,8 @@
 .contact-card {
     max-width: 30rem;
     margin: auto;
-    /* border: 1px solid#86807c; */
     padding: 1rem;
     border-radius: 0.5rem;
-    /* box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1); */
     font-family: "Open Sans", sans-serif;
 }
 .social-icons {
