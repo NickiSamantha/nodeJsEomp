@@ -207,10 +207,11 @@ export default createStore({
         });
       }
     },
-    async updateProduct(context, payload) {
+    async updateProduct(context, prodID, payload) {
       try {
-        const { msg } = await (
-          await axios.patch(`${apiURL}products/update/${payload.productID}`, payload)
+        console.log(payload);
+        const msg  = await (
+          await axios.patch(`${apiURL}products/update/${prodID}`, payload)
         ).data;
         if (msg) {
           context.dispatch("fetchProducts");

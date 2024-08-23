@@ -576,46 +576,7 @@
       <Spinner />
     </div>
 
-    <!-- Add/Edit Product Modal -->
-    <div v-if="showAddProductModal" class="custom-modal">
-      <div class="modal-overlay" @click="showAddProductModal = false"></div>
-      <div class="modal-content">
-        <h3>{{ isEditingProduct ? "Edit Product" : "Add New Product" }}</h3>
-        <form @submit.prevent="addOrUpdateProduct">
-          <div class="form-group">
-            <label for="productName">Product Name:</label>
-            <input
-              v-model="productPayload.prodName"
-              type="text"
-              id="productName"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="category">Category:</label>
-            <input
-              v-model="productPayload.category"
-              type="text"
-              id="category"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="amount">Price:</label>
-            <input
-              v-model="productPayload.amount"
-              type="number"
-              id="amount"
-              required
-            />
-          </div>
-          <button class=" m-2" type="submit">Save Product</button>
-          <button type="reset" >
-            Clear
-          </button>
-        </form>
-      </div>
-    </div>
+
     
   <!-- </div> -->
 </template>
@@ -798,8 +759,10 @@ export default {
       productPayload: {
         prodName: "",
         quantity: null,
-        categoty: "",
+        category: "",
         amount: null,
+        prodUrl:"",
+        prodDescription:""
         
       },
     };
@@ -826,16 +789,9 @@ export default {
     },
     addProduct() {
       this.$store.dispatch("addAProduct", this.productPayload);
-
-      //
     },
     updateProduct(product) {
-      Object.defineProperty(this.productPayload, "prodID", {
-        value: product.ID,
-      });
-      console.log(this.productPayload);
-
-      this.$store.dispatch("updateProduct", this.productPayload);
+      this.$store.dispatch("updateProduct",product.prodID,  this.productPayload);
     },
   },
 };
