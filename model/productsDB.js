@@ -26,7 +26,7 @@ const getProductDb = async (id) =>{
 const insertProductDb = async(prodName, quantity, amount, category, prodUrl, prodDescription) =>{
     await pool.query(`
         INSERT INTO products (prodName, quantity, amount, category, prodUrl, prodDescription)
-        VALUES (?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?)
         `, [prodName, quantity, amount, category, prodUrl, prodDescription])
 }
 
