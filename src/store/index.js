@@ -81,7 +81,7 @@ export default createStore({
     },
     async fetchUser(context, id) {
       try {
-        const  result = await (await axios.get(`${apiURL}user/${id}`)).data
+        const  result = await (await axios.get(`${apiURL}users/${id}`)).data
         if (result) {
           context.commit('setUser', result)
         } 
@@ -100,8 +100,8 @@ export default createStore({
     },
     async register(context, payload) {
       try {
-        const { msg, err, token } = await (await axios.post(`${apiURL}user/register`, payload)).data
-        if (token) {
+        const msg = await (await axios.post(`${apiURL}users/register`, payload)).data
+        if (msg) {
           context.dispatch('fetchUsers')
           toast.success(`${msg}`, {
             autoClose: 2000,
@@ -109,7 +109,7 @@ export default createStore({
           })
          
         } else {
-          toast.error(`${err}`, {
+          toast.error(`${msg}`, {
             autoClose: 2000,
             position: toast.POSITION.BOTTOM_CENTER
           })
@@ -123,11 +123,11 @@ export default createStore({
     },
     async updateUser(context, payload) {
       try {
-        const { msg, err } = await (await axios.patch(`${apiURL}user/${payload.userID}`, payload)).data
+        const msg = await (await axios.patch(`${apiURL}users/update/${payload.userID}`, payload)).data
         if (msg) {
           context.dispatch('fetchUsers')
         } else {
-          toast.error(`${err}`, {
+          toast.error(`${msg}`, {
             autoClose: 2000,
             position: toast.POSITION.BOTTOM_CENTER
           })
@@ -141,11 +141,11 @@ export default createStore({
     },
     async deleteUser(context, id) {
       try {
-        const { msg, err } = await (await axios.delete(`${apiURL}user/${id}`)).data
+        const msg = await (await axios.delete(`${apiURL}users/delete/${id}`)).data
         if (msg) {
           context.dispatch('fetchUsers')
         } else {
-          toast.error(`${err}`, {
+          toast.error(`${msg}`, {
             autoClose: 2000,
             position: toast.POSITION.BOTTOM_CENTER
           })
@@ -179,27 +179,6 @@ export default createStore({
         });
       }
     },
-    async recentProducts(context) {
-      try {
-        const  results  = await (
-          await axios.get(`${apiURL}product/recent`)
-        ).data;
-        if (results) {
-          context.commit("setRecentProducts", results);
-        }
-        //  else {
-        //   toast.error(`${msg}`, {
-        //     autoClose: 2000,
-        //     position: toast.POSITION.BOTTOM_CENTER,
-        //   });
-        // }
-      } catch (e) {
-        toast.error(`${e.message}`, {
-          autoClose: 2000,
-          position: toast.POSITION.BOTTOM_CENTER,
-        });
-      }
-    },
     async fetchProduct(context, id) {
       try {
         const result  = await (
@@ -223,8 +202,8 @@ export default createStore({
     },
     async addAProduct(context, payload) {
       try {
-        const { msg } = await (
-          await axios.post(`${apiURL}product/addProduct`, payload)
+        const msg  = await (
+          await axios.post(`${apiURL}products/addProduct`, payload)
         ).data;
         if (msg) {
           context.dispatch("fetchProducts");
