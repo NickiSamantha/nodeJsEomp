@@ -446,7 +446,14 @@
               <td>{{ product.prodID }}</td>
               <td>{{ product.prodName }}</td>
               <td>{{ product.prodDescription }}</td>
-              <td>{{ product.prodUrl }}</td>
+              <td>
+                <img
+                  :src="product.prodUrl"
+                  loading="lazy"
+                  class="img-fluid user"
+                  :alt="product.prodUrl"
+                />
+              </td>
               <td>{{ product.category }}</td>
               <td>{{ product.quantity }}</td>
               <td>{{ product.amount }}</td>
@@ -875,5 +882,11 @@ export default {
 
 .user {
   width: 5rem;
+}
+.prod{
+  width: 5rem;
+}
+.form-group{
+  display:grid;
 }
 </style>
