@@ -111,8 +111,8 @@
                       required
                     />
                   </div>
-                  <button type="submit">Save User</button>
-                  <button type="reset">Cancel</button>
+                  <button class="m-2" type="submit">Save User</button>
+                  <button class="m-2" type="reset">Clear</button>
                 </form>
                 <div class="modal-footer">
                   <button
@@ -384,14 +384,32 @@
                   <div class="form-group">
                     <label for="amount">Amount:</label>
                     <input
-                      v-model="product"
+                      v-model="productPayload.amount"
                       type="number"
                       id="amount"
                       required
                     />
                   </div>
-                  <button type="submit">Save Product</button>
-                  <button type="reset">Cancel</button>
+                  <div class="form-group">
+                    <label for="prodDescription">Product Description:</label>
+                    <input
+                      v-model="productPayload.prodDescription"
+                      type="text"
+                      id="prodDescription"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="prodUrl">Image:</label>
+                    <input
+                      v-model="productPayload.prodUrl"
+                      type="url"
+                      id="prodUrl"
+                      required
+                    />
+                  </div>
+                  <button class=" m-2" type="submit">Save Product</button>
+                  <button class="m-2" type="reset">Clear</button>
                 </form>
                 <div class="modal-footer">
                   <button
@@ -417,6 +435,8 @@
             <tr>
               <th>ID</th>
               <th>Product Name</th>
+              <th>Description</th>
+              <th>Product Image</th>
               <th>Category</th>
               <th>Quantity</th>
               <th>Price</th>
@@ -427,9 +447,12 @@
             <tr v-for="product in products" :key="product.prodID">
               <td>{{ product.prodID }}</td>
               <td>{{ product.prodName }}</td>
+              <td>{{ product.prodDescription }}</td>
+              <td>{{ product.prodUrl }}</td>
               <td>{{ product.category }}</td>
               <td>{{ product.quantity }}</td>
               <td>{{ product.amount }}</td>
+
               <td>
                 <button
                   class="btn btn-secondary btn-sm mt-2 m-2"
@@ -498,8 +521,26 @@
                       required
                     />
                   </div>
-                          <button type="submit">Save User</button>
-                          <button type="reset">Cancel</button>
+                  <div class="form-group">
+                    <label for="prodDescription">Product Description:</label>
+                    <input
+                      v-model="productPayload.prodDescription"
+                      type="text"
+                      id="prodDescription"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="prodUrl">Image:</label>
+                    <input
+                      v-model="productPayload.prodUrl"
+                      type="url"
+                      id="prodUrl"
+                      required
+                    />
+                  </div>
+                          <button class="m-2" type="submit">Save Product</button>
+                          <button class="m-2" type="reset">Clear</button>
                         </form>
                       </div>
                       <div class="modal-footer">
@@ -510,9 +551,9 @@
                         >
                           Close
                         </button>
-                        <button type="button" class="btn btn-primary">
+                        <!-- <button type="button" class="btn btn-primary">
                           Save changes
-                        </button>
+                        </button> -->
                       </div>
                     </div>
                   </div>
@@ -565,11 +606,9 @@
               required
             />
           </div>
-          <button type="submit">
-            {{ isEditingProduct ? "Update Product" : "Save Product" }}
-          </button>
-          <button type="reset" @click="showAddProductModal = false">
-            Cancel
+          <button class=" m-2" type="submit">Save Product</button>
+          <button type="reset" >
+            Clear
           </button>
         </form>
       </div>
@@ -612,6 +651,8 @@ export default {
       category: "",
       amount: null,
       quantity: "",
+      prodDescription:"",
+      prodUrl:"",
     
     });
 
@@ -680,6 +721,9 @@ export default {
       //   store.dispatch("addAProduct", productForm.value).then((newProduct) => {
       //     store.commit("setProducts", [...store.state.products, newProduct]);
       //   });
+      }  else {
+        alert(productForm.value);
+        store.dispatch("addProduct", productForm.value); 
       }
       showAddProductModal.value = false;
       resetProductForm();
@@ -692,6 +736,8 @@ export default {
         category: "",
         amount: 0,
         quantity: 0,
+        prodDescription:"",
+        prodUrl:"",
       };
       isEditingProduct.value = true;
       showAddProductModal.value = true;
