@@ -10,15 +10,24 @@ const checkUser = async(req,res,next)=>{
     
     console.log(hashedPassword);
 
-    compare(userPass, hashedPassword, (err,result)=> {
-        if(result==true){
-            let token = jwt.sign({userAdd:userAdd},process.env.SECRET_KEY,{expiresIn:'1h'})
-            console.log(token);
-            req.body.token = token
-            next()
-            return
-        }
-        res.send('Your password is incorrect bud')
-    })
+    try {
+        compare(userPass, hashedPassword, (err, result) => {
+            if (err) {
+                return res.status(500).send('Internal server error');
+            }
+            
+            if (result) {
+                let token = jwt.sign({ userAdd: userAdd }, process.env.SECRET_KEY, { expiresIn: '1h' });
+                console.log(token);
+                req.body.token = token;
+                next();
+                return;
+            } else {
+                res.status(401).send('Your password is incorrect');
+            }
+        });
+    } catch (error) {
+        res.status(500).send('An unexpected error occurred');
+    }
 }
 export {checkUser}
