@@ -3,7 +3,7 @@
     <div class="row">
       <h2 class="display-2">Products</h2>
     </div>
-    <div class="row gap-2 justify-content-center my-2" v-if="products">
+    <div class="row gap-2 justify-content-center prod" v-if="products">
       <Card v-for="product  in products" :key="product.prodID">
         <template #cardHeader>
           <img

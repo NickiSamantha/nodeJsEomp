@@ -7,17 +7,129 @@
     <div class="container mt-3">
       <!-- Manage Users Section -->
       <h1>Manage Users</h1>
-      
-<!-- add user -->
+
+      <!-- add user -->
       <div class="row mb-3">
         <div class="col-sm-4">
-          <button type="button"
+          <button
+            type="button"
             class="btn btn-light mt-3 mb-3"
-            @click="showAddUserModal = true">
+            data-bs-toggle="modal"
+            data-bs-target="#addModal"
+          >
             Add New User
           </button>
+          <!-- Add user modal -->
+          <div
+            class="modal fade"
+            id="addModal"
+            tabindex="-1"
+            aria-labelledby="addModallLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="addModalLabel">Add user</h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <form @submit.prevent="addUser">
+                  <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input
+                      v-model="userPayload.firstName"
+                      type="text"
+                      id="firstName"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input
+                      v-model="userPayload.lastName"
+                      type="text"
+                      id="lastName"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input
+                      v-model="userPayload.userAge"
+                      type="number"
+                      id="age"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <input
+                      v-model="userPayload.Gender"
+                      type="text"
+                      id="gender"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="role">User role:</label>
+                    <input
+                      v-model="userPayload.userRole"
+                      type="text"
+                      id="role"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input
+                      v-model="userPayload.userAdd"
+                      type="email"
+                      id="email"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input
+                      v-model="userPayload.userPass"
+                      type="password"
+                      id="password"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="profile">Profile:</label>
+                    <input
+                      v-model="userPayload.userProfile"
+                      type="url"
+                      id="profile"
+                      required
+                    />
+                  </div>
+                  <button type="submit">Save User</button>
+                  <button type="reset">Cancel</button>
+                </form>
+                <div class="modal-footer">
+                  <button
+                    type="reset"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- Edit User Modal -->
+
       <div class="table-responsive" v-if="users && users.length">
         <table class="table table-bordered">
           <thead>
@@ -25,7 +137,10 @@
               <th>ID</th>
               <th>Last Name</th>
               <th>First Name</th>
+              <th>Age</th>
+              <th>Gender</th>
               <th>Email</th>
+              <th>User Profile</th>
               <th>Role</th>
               <th>Actions</th>
             </tr>
@@ -35,17 +150,144 @@
               <td>{{ user.userID }}</td>
               <td>{{ user.lastName }}</td>
               <td>{{ user.firstName }}</td>
+              <td>{{ user.userAge }}</td>
+              <td>{{ user.Gender }}</td>
               <td>{{ user.userAdd }}</td>
+              <td>
+                <img
+                  :src="user.userProfile"
+                  loading="lazy"
+                  class="img-fluid user"
+                  :alt="user.userProfile"
+                />
+              </td>
               <td>{{ user.userRole }}</td>
               <td>
                 <button
-                  class="btn btn-warning btn-sm"
-                  @click="editUser(user)">
+                  class="btn btn-secondary btn-sm m-2 mt-2"
+                  data-bs-toggle="modal"
+                  :data-bs-target="`#editUserModal${user.userID}`"
+                >
                   Edit
                 </button>
+                <div
+                  class="modal fade"
+                  :id="`editUserModal${user.userID}`"
+                  tabindex="-1"
+                  aria-labelledby="editUserModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editUserModalLabel">
+                          Update user
+                        </h1>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <form @submit.prevent="updateUser(user)">
+                          <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <input
+                              v-model="userPayload.firstName"
+                              :placeholder="user.firstName"
+                              type="text"
+                              id="firstName"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="lastName">Last Name:</label>
+                            <input
+                              v-model="userPayload.lastName"
+                              type="text"
+                              id="lastName"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input
+                              v-model="userPayload.userAge"
+                              type="number"
+                              id="age"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <input
+                              v-model="userPayload.Gender"
+                              type="text"
+                              id="gender"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="role">User role:</label>
+                            <input
+                              v-model="userPayload.userRole"
+                              type="text"
+                              id="role"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input
+                              v-model="userPayload.userAdd"
+                              type="email"
+                              id="email"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input
+                              v-model="userPayload.userPass"
+                              type="password"
+                              id="password"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="profile">Profile:</label>
+                            <input
+                              v-model="userPayload.userProfile"
+                              type="url"
+                              id="profile"
+                              required
+                            />
+                          </div>
+                          <button type="submit">Save User</button>
+                          <button type="reset">Cancel</button>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                          Save changes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <button
-                  class="btn btn-danger btn-sm"
-                  @click="deleteUser(user.userID)">
+                  class="btn btn-danger btn-sm mt-2 m-2"
+                  @click="deleteUser(user.userID)"
+                >
                   Delete
                 </button>
               </td>
@@ -59,51 +301,124 @@
 
       <!-- Manage Products Section -->
       <h1>Manage Products</h1>
-       <!-- sort -->
+      <!-- sort -->
       <div class="row mb-3">
-    <div class="col-sm-4">
-      <button
-        class="btn btn-secondary"
-        @click="sortProductsByAmount"
-      >
-        Sort by amount
-      </button>
-      
-    </div>
-    <button
-        class="btn btn-secondary col-sm-2"
-        @click="searchProductsByCategory(searchCategory)"
-      >
-        Search 
-      </button>
-    <div class="col-sm-4">
-      <input
-        type="text"
-        v-model="searchCategory"
-        placeholder="Search by category"
-        class="form-control"
-      /> 
-    </div>
-    
-  </div>
+        <div class="col-sm-4">
+          <button class="btn btn-secondary mb-2" @click="sortProductsByAmount">
+            Sort by amount
+          </button>
+        </div>
+        <div class="col-sm-4">
+          <button
+            class="btn btn-secondary mb-2"
+            @click="searchProductsByCategory(searchCategory)"
+          >
+            Search
+          </button>
+
+          <input
+            type="text"
+            v-model="searchCategory"
+            placeholder="Search by category"
+            class="form-control"
+          />
+        </div>
+      </div>
       <div class="row mb-3">
         <div class="col-sm-4">
           <button
             type="button"
             class="btn btn-light mt-3 mb-3"
-            @click="showAddProductModal = true"
+             data-bs-toggle="modal"
+            data-bs-target="#addProdModal"
           >
             Add New Product
           </button>
+          <!-- Add User Modal  -->
+          <div
+            class="modal fade"
+            id="addProdModal"
+            tabindex="-1"
+            aria-labelledby="addProdModallLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="addProdModalLabel">Add Product</h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <form @submit.prevent="addProduct">
+                  <div class="form-group">
+                    <label for="prodName">Product Name:</label>
+                    <input
+                      v-model="productPayload.prodName"
+                      type="text"
+                      id="prodName"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="category">Category:</label>
+                    <input
+                      v-model="productPayload.category"
+                      type="text"
+                      id="category"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input
+                      v-model="productPayload.quantity"
+                      type="number"
+                      id="quantity"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input
+                      v-model="product"
+                      type="number"
+                      id="amount"
+                      required
+                    />
+                  </div>
+                  <button type="submit">Save Product</button>
+                  <button type="reset">Cancel</button>
+                </form>
+                <div class="modal-footer">
+                  <button
+                    type="reset"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="table-responsive" v-if="products && products.length">
+
+
+        </div>
+      </div>
+      <div class="table-responsive pb-5 m-4" v-if="products && products.length">
         <table class="table table-bordered">
           <thead>
             <tr>
               <th>ID</th>
               <th>Product Name</th>
               <th>Category</th>
+              <th>Quantity</th>
               <th>Price</th>
               <th>Actions</th>
             </tr>
@@ -113,16 +428,97 @@
               <td>{{ product.prodID }}</td>
               <td>{{ product.prodName }}</td>
               <td>{{ product.category }}</td>
+              <td>{{ product.quantity }}</td>
               <td>{{ product.amount }}</td>
               <td>
                 <button
-                  class="btn btn-warning btn-sm"
-                  @click="editProduct(product)"
+                  class="btn btn-secondary btn-sm mt-2 m-2"
+                  data-bs-toggle="modal"
+                  :data-bs-target="`#editProdModal${product.prodID}`"
                 >
                   Edit
                 </button>
+<!-- Edit Prod Modal -->
+                  <div
+                  class="modal fade"
+                  :id="`editProdModal${product.prodID}`"
+                  tabindex="-1"
+                  aria-labelledby="editProdModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editProdModalLabel">
+                          Update Product
+                        </h1>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <form @submit.prevent="updateProduct(product)">
+                          <div class="form-group">
+                            <label for="productName">Product Name:</label>
+                            <input
+                              v-model="productPayload.prodName"
+                              :placeholder="product.prodName"
+                              type="text"
+                              id="prodName"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="category">Category:</label>
+                            <input
+                              v-model="productPayload.category"
+                              type="text"
+                              id="category"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input
+                      v-model="productPayload.quantity"
+                      type="number"
+                      id="quantity"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input
+                      v-model="productPayload.amount"
+                      type="number"
+                      id="amount"
+                      required
+                    />
+                  </div>
+                          <button type="submit">Save User</button>
+                          <button type="reset">Cancel</button>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                          Save changes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <button
-                  class="btn btn-danger btn-sm"
+                  class="btn btn-danger btn-sm mt-2 m-2"
                   @click="deleteProduct(product.prodID)"
                 >
                   Delete
@@ -135,59 +531,50 @@
       <div v-else class="text-center">
         <spinner label="Loading..."></spinner>
       </div>
-    </div>
-    <!-- Add/Edit User Modal -->
-   <div v-if="showAddUserModal" class="custom-modal">
-    <div class="modal-overlay" @click="showAddUserModal = false">
-    </div>
-    <div class="modal-content">
-      <h3>{{ isEditingUser ? 'Edit User' : 'Add New User' }}</h3>
-      <form @submit.prevent="addOrUpdateUser">
-        <div class="form-group">
-          <label for="firstName">First Name:</label>
-          <input v-model="userForm.firstName" type="text" id="firstName" required>
-        </div>
-        <div class="form-group">
-          <label for="lastName">Last Name:</label>
-          <input v-model="userForm.lastName" type="text" id="lastName" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input v-model="userForm.email" type="email" id="email" required>
-          </div>
-          <div class="form-group">
-            <label for="role">Role:</label>
-            <input v-model="userForm.role" type="text" id="role" required>
-          </div>
-          <button type="submit">{{ isEditingUser ? 'Update User' : 'Save User' }}</button>
-          <button type="reset" @click="showAddUserModal = false">Cancel</button>
-        </form>
-    </div>
-    </div>
+
     <!-- Add/Edit Product Modal -->
     <div v-if="showAddProductModal" class="custom-modal">
       <div class="modal-overlay" @click="showAddProductModal = false"></div>
       <div class="modal-content">
-        <h3>{{ isEditingProduct ? 'Edit Product' : 'Add New Product' }}</h3>
+        <h3>{{ isEditingProduct ? "Edit Product" : "Add New Product" }}</h3>
         <form @submit.prevent="addOrUpdateProduct">
           <div class="form-group">
             <label for="productName">Product Name:</label>
-            <input v-model="productForm.prodName" type="text" id="productName" required>
+            <input
+              v-model="productPayload.prodName"
+              type="text"
+              id="productName"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="category">Category:</label>
-            <input v-model="productForm.category" type="text" id="category" required>
+            <input
+              v-model="productPayload.category"
+              type="text"
+              id="category"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="amount">Price:</label>
-            <input v-model="productForm.amount" type="number" id="amount" required>
+            <input
+              v-model="productPayload.amount"
+              type="number"
+              id="amount"
+              required
+            />
           </div>
-          <button type="submit">{{ isEditingProduct ? 'Update Product' : 'Save Product' }}</button>
-          <button type="reset" @click="showAddProductModal = false">Cancel</button>
+          <button type="submit">
+            {{ isEditingProduct ? "Update Product" : "Save Product" }}
+          </button>
+          <button type="reset" @click="showAddProductModal = false">
+            Cancel
+          </button>
         </form>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -196,7 +583,7 @@ import { computed, ref, onMounted } from "vue";
 import { Spinner } from "@/components/Spinner.vue";
 
 export default {
-  name: 'AdminDashboard',
+  name: "AdminDashboard",
   components: {
     Spinner,
   },
@@ -209,16 +596,23 @@ export default {
     const isEditingUser = ref(false);
     const isEditingProduct = ref(false);
     const userForm = ref({
-      id: null,
-      userName: "",
-      email: "",
-      role: "",
+      firstName: "",
+      lastName: "",
+      userAge: null,
+      Gender: "",
+      userRole: "",
+      userAdd: "",
+      userPass: "",
+      userProfile:
+        "https://codjoelmayer.github.io/projectImages/images/profile-Image.png",
     });
     const productForm = ref({
-      id: null,
-      productName: "",
+      // prodID: null,
+      prodName: "",
       category: "",
       amount: null,
+      quantity: "",
+    
     });
 
     // Vuex state
@@ -235,23 +629,30 @@ export default {
     const addOrUpdateUser = () => {
       if (isEditingUser.value) {
         store.dispatch("updateUser", userForm.value);
-      }  else {
-    store.dispatch("register", userForm.value).then((newUser) => {
-      store.commit("setUsers", [...store.state.users, newUser]);
-    });
-  }
+      } else {
+        alert(userForm.value);
+        store.dispatch("register", userForm.value);
+        // .then((newUser) => {
+        //   store.commit("setUsers", [...store.state.users, newUser]);
+        // });
+      }
       showAddUserModal.value = false;
       resetUserForm();
     };
 
     const editUser = (user) => {
       userForm.value = {
-  id: user.userID,
-  lastName: user.lastName,
-  firstName: user.firstName,
-  email: user.email,
-  role: user.role,
-};
+        userID: user.userID,
+        firstName: "",
+        lastName: "",
+        userAge: 0,
+        Gender: "",
+        userRole: "",
+        userAdd: "",
+        userPass: "",
+        userProfile:
+          "https://codjoelmayer.github.io/projectImages/images/profile-Image.png",
+      };
       isEditingUser.value = true;
       showAddUserModal.value = true;
     };
@@ -262,7 +663,7 @@ export default {
 
     const resetUserForm = () => {
       userForm.value = {
-        id: null,
+        userID: null,
         userName: "",
         email: "",
         role: "",
@@ -271,25 +672,27 @@ export default {
     };
 
     // Methods for handling products
+
     const addOrUpdateProduct = () => {
       if (isEditingProduct.value) {
         store.dispatch("updateProduct", productForm.value);
-      } else {
-    store.dispatch("addAProduct", productForm.value).then((newProduct) => {
-      store.commit("setProducts", [...store.state.products, newProduct]);
-    });
-  }
+      // } else {
+      //   store.dispatch("addAProduct", productForm.value).then((newProduct) => {
+      //     store.commit("setProducts", [...store.state.products, newProduct]);
+      //   });
+      }
       showAddProductModal.value = false;
       resetProductForm();
     };
 
     const editProduct = (product) => {
       productForm.value = {
-  id: product.prodID,
-  productName: product.prodName,
-  category: product.category,
-  amount: product.amount,
-};
+        prodID: product.prodID,
+        prodName: "",
+        category: "",
+        amount: 0,
+        quantity: 0,
+      };
       isEditingProduct.value = true;
       showAddProductModal.value = true;
     };
@@ -300,10 +703,11 @@ export default {
 
     const resetProductForm = () => {
       productForm.value = {
-        id: null,
+        prodID: null,
         productName: "",
         category: "",
         amount: null,
+        quantity: null,
       };
       isEditingProduct.value = false;
     };
@@ -313,11 +717,11 @@ export default {
       products,
       showAddUserModal,
       showAddProductModal,
+      addOrUpdateUser,
       userForm,
       productForm,
       isEditingUser,
       isEditingProduct,
-      addOrUpdateUser,
       addOrUpdateProduct,
       editUser,
       editProduct,
@@ -329,21 +733,62 @@ export default {
   },
   data() {
     return {
-      searchCategory: '',
-    }
+      searchCategory: "",
+      userPayload: {
+        firstName: "",
+        lastName: "",
+        userAge: null,
+        Gender: "",
+        userRole: "",
+        userAdd: "",
+        userPass: "",
+        userProfile:
+          "https://codjoelmayer.github.io/projectImages/images/profile-Image.png",
+      },
+      productPayload: {
+        prodName: "",
+        quantity: null,
+        categoty: "",
+        amount: null,
+        
+      },
+    };
   },
 
   methods: {
     searchProductsByCategory(category) {
-      this.$store.dispatch('searchProductsByCategory', category);
+      this.$store.dispatch("searchProductsByCategory", category);
     },
 
     sortProductsByAmount() {
-      this.$store.dispatch('sortProductsByAmount');
+      this.$store.dispatch("sortProductsByAmount");
+    },
+    addUser() {
+      this.$store.dispatch("register", this.userPayload);
+
+      //
+    },
+    updateUser(user) {
+      Object.defineProperty(this.userPayload, "userID", { value: user.userID });
+      console.log(this.userPayload);
+
+      this.$store.dispatch("updateUser", this.userPayload);
+    },
+    addProduct() {
+      this.$store.dispatch("addAProduct", this.productPayload);
+
+      //
+    },
+    updateProduct(product) {
+      Object.defineProperty(this.productPayload, "prodID", {
+        value: product.ID,
+      });
+      console.log(this.productPayload);
+
+      this.$store.dispatch("updateProduct", this.productPayload);
     },
   },
-}
-  
+};
 </script>
 
 <style scoped>
@@ -372,7 +817,7 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  z-index: 1050; /* Ensure the modal is above other content */
+  z-index: 1050;
 }
 
 /* Modal content */
@@ -383,5 +828,9 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   max-width: 500px;
   width: 100%;
+}
+
+.user {
+  width: 5rem;
 }
 </style>

@@ -49,20 +49,25 @@ img[alt='logo'] {
   
 }
 
+
 .btn:hover {
 color: rgb(127, 90, 90);
 }
+body{
+background: linear-gradient(90deg, #b98e6e, #c19a7d, #c9a78d, #d1b39d, #e8d9cd);
 
-
-/*wrapper*/
-:is(.wrapper){background: linear-gradient(90deg, #b98e6e, #c19a7d, #c9a78d, #d1b39d, #e8d9cd);
 }
+
 /*Fonts*/
 .display-2 {
 font-family: "Playfair Display", serif;
 }
 h2 , h3 , h4 , p , h1 , h5 , label , button  {
  font-family: "Playfair Display", serif;
+}
+
+.prod{
+  padding-bottom: 5rem; 
 }
 /*MEDIA QUERIES*/
  @media only screen and (max-width:720px) {

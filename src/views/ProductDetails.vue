@@ -3,7 +3,7 @@
     <div class="row">
       <h2 class="display-2">Product Details</h2>
     </div>
-    <div class="row justify-content-center" v-if="product">
+    <div class="row justify-content-center mt-5" v-if="product">
       <Card>
         <template #cardHeader>
           <img
