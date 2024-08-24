@@ -266,7 +266,7 @@
                             />
                           </div>
                           <button class="m-2" type="submit">Save User</button>
-                          <button class="m-2" type="reset">Cancel</button>
+                          <button class="m-2" type="reset">Clear</button>
                         </form>
                       </div>
                       <div class="modal-footer">
