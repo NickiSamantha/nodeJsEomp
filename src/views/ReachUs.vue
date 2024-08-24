@@ -34,7 +34,7 @@
            </form>
     </div>
 
-    <div class="contact-card col-md-6  mb-5 p-2 ">
+    <div class="contact-card col-md-6  p-2 ">
         <h1>Reach Us</h1>
         <p><strong>Email:</strong> prettysimpleprintz24@gmail.com</p>
         <p><strong>Phone:</strong> 067 775 8935</p>

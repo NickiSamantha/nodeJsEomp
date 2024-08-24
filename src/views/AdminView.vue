@@ -427,7 +427,7 @@
 
         </div>
       </div>
-      <div class="table-responsive pb-5 m-4" v-if="products && products.length">
+      <div class="table-responsive  m-4" v-if="products && products.length">
         <table class="table table-bordered">
           <thead>
             <tr>

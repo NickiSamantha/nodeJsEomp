@@ -1,5 +1,5 @@
 <template>
-      <footer class="bottom footer container-fluid fixed-bottom pt-2">
+      <footer class="bottom footer container-fluid sticky-bottom ">
       <div class="row">
           <p class="lead">Nicki Abels & Mahmud Isaacs Copyright &copy;
               <span>{{cYear}}</span>
